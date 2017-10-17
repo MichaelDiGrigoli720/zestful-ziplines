@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/scenes/testScene.unity
+- path: C:/Users/Jason/Documents/GitHub/GDDDigitalGame/GDDDigitalGame/Assets/Scenes/AriaTestScene.unity
   isLoaded: 1
   isActive: 1
