@@ -22,7 +22,8 @@ public class Zipline : MonoBehaviour
     //Zipline starting point (Hand for now)
     public Transform ziplineStart;
 
-    public FirstPersonController FPC;
+    public RigidbodyFirstPersonController FPC;
+    private Rigidbody fpcRigidBody;
 
     //Zipline line
     public LineRenderer lineRenderer;
@@ -30,6 +31,7 @@ public class Zipline : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         Cursor.lockState = CursorLockMode.Locked;
+        fpcRigidBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -45,7 +47,7 @@ public class Zipline : MonoBehaviour
 
         if(IsFlying)
         {
-            Physics.gravity = new Vector3(0, 0.0f, 0);
+            fpcRigidBody.useGravity = false;
             transform.position = Vector3.MoveTowards(transform.position, loc, speed * Time.deltaTime);
 
             lineRenderer.SetPosition(0, ziplineStart.position);
@@ -60,9 +62,9 @@ public class Zipline : MonoBehaviour
             }
         }
 
-        else
+        else if(!IsFlying && fpcRigidBody.useGravity == false)
         {
-            Physics.gravity = new Vector3(0.0f, -9.8f, 0.0f);
+            fpcRigidBody.useGravity = true;
         }
 
         if (Input.GetKey(KeyCode.Space) && IsFlying)

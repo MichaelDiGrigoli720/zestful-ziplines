@@ -14,13 +14,13 @@ public class Hazard : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		GameObject gObj = collision.gameObject;
-		if(gObj.tag == "Player") {
-			Transform camTransform = gObj.GetComponent<Transform>().GetChild(0).GetComponent<Transform>();
-			camTransform.position -= camTransform.forward * 3;
+        GameObject gObj = collision.gameObject;
+        if (gObj.tag == "Player") {
+			//Transform camTransform = gObj.GetComponent<Transform>().GetChild(0).GetComponent<Transform>();
+			//camTransform.position -= camTransform.forward * 3;
 
 			(gObj.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
-			IEnumerator coroute = gObj.GetComponent<Death>().Respawn(5.0f);
+            IEnumerator coroute = gObj.GetComponent<Death>().Respawn(5.0f);
 			StartCoroutine(coroute);
 		}
 	}
