@@ -8,10 +8,12 @@ public class Projectile : MonoBehaviour {
 	public float speed;
 
 	private Transform transform;
+	//private BoxCollider boxColl;
 
 	// Use this for initialization
 	void Start () {
 		transform = GetComponent<Transform>();
+		//boxColl = GetComponent<BoxCollider>();
 	}
 
 	// Update is called once per frame
@@ -20,11 +22,14 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		firedBy.loc = collision.contacts[0].point;
-		firedBy.isFlying = true;
-		firedBy.FPC.canMove = false;
-		firedBy.lineRenderer.enabled = enabled;
-		firedBy.lineRenderer.SetPosition(1, firedBy.loc);
-		Destroy(gameObject);
+		if(collision.rigidbody != firedBy.fpcRigidBody) {
+			firedBy.loc = collision.contacts[0].point;
+			firedBy.isFlying = true;
+			firedBy.fpcRigidBody.velocity = Vector3.zero;
+			firedBy.FPC.canMove = false;
+			firedBy.lineRenderer.enabled = enabled;
+			firedBy.lineRenderer.SetPosition(1, firedBy.loc);
+			Destroy(gameObject);
+		}
 	}
 }

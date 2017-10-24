@@ -17,7 +17,7 @@ public class Zipline : MonoBehaviour
 	public LineRenderer lineRenderer; //Zipline line
 
 	private float elapsedTime = 0.0f; //Time since last shot
-	private Rigidbody fpcRigidBody; // the FPC Rigidbody component
+	public Rigidbody fpcRigidBody; // the FPC Rigidbody component
 	private GameObject curProj; //The current projectile shot
 
 	// Use this for initialization
@@ -37,7 +37,12 @@ public class Zipline : MonoBehaviour
 		if(isFlying)
 		{
 			fpcRigidBody.useGravity = false;
-			transform.position = Vector3.MoveTowards(transform.position, loc, speed * Time.deltaTime);
+			//transform.position = Vector3.MoveTowards(transform.position, loc, speed * Time.deltaTime);
+
+			fpcRigidBody.velocity = Vector3.zero;
+			Vector3 pathNorm = loc - transform.position;
+			pathNorm = pathNorm.normalized;
+			fpcRigidBody.velocity = pathNorm * speed;
 
 			lineRenderer.SetPosition(0, ziplineStart.position);
 			//elapsedtime += Time.deltaTime;
@@ -53,6 +58,7 @@ public class Zipline : MonoBehaviour
 		else if(!isFlying && fpcRigidBody.useGravity == false)
 		{
 			fpcRigidBody.useGravity = true;
+			fpcRigidBody.drag = 5;
 		}
 
 		if (Input.GetKey(KeyCode.Space) && isFlying)
@@ -60,6 +66,7 @@ public class Zipline : MonoBehaviour
 			isFlying = false;
 			FPC.canMove = true;
 			lineRenderer.enabled = false;
+			fpcRigidBody.drag = 5;
 		}
 
 		if(elapsedTime != 0)
@@ -75,7 +82,7 @@ public class Zipline : MonoBehaviour
 
 	public void findLocation()
 	{
-		curProj = (GameObject)Instantiate(projectile, FPC.transform.position + FPC.transform.forward + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
+		curProj = (GameObject)Instantiate(projectile, FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
 		curProj.GetComponent<Projectile>().firedBy = this;
 		Destroy(curProj, 5.0f);
 	}
