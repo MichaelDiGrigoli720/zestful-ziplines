@@ -16,6 +16,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float BackwardSpeed = 4.0f;  // Speed when walking backwards
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
             public float RunMultiplier = 2.0f;   // Speed when sprinting
+
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
@@ -82,7 +83,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
 
-
+		public float drag = 0.99f;
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
@@ -179,7 +180,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 else
                 {
-                    m_RigidBody.drag = 0f;
+					m_RigidBody.drag = 0f;
+					m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x * drag, m_RigidBody.velocity.y, m_RigidBody.velocity.z * drag);
                     if (m_PreviouslyGrounded && !m_Jumping)
                     {
                         StickToGroundHelper();
@@ -214,7 +216,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector2 GetInput()
         {
-            
+
             Vector2 input = new Vector2
                 {
                     x = CrossPlatformInputManager.GetAxis("Horizontal"),
