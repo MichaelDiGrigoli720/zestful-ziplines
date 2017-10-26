@@ -57,15 +57,32 @@ public class advancedMovement : MonoBehaviour {
 
     bool checkSpaceDown()
     {
-        return Input.GetKey("space");
+        if(gameObject.tag == "Player")
+        {
+            return Input.GetAxis("Jump") == 1;
+        } else if (gameObject.tag == "Player2")
+        {
+            return Input.GetAxis("Jump2") == 1;
+        }
+
+        return false;
     }
     bool checkLCtrlDown()
     {
-        return Input.GetKey(KeyCode.LeftControl);
+        return Input.GetAxis("WallDisengage") == 1;
     }
     bool checkJump()
     {
-        return Input.GetKeyDown("space");
+        if (this.gameObject.tag == "Player")
+        {
+            return Input.GetAxis("Jump") == 1;
+        }
+        else if (this.gameObject.tag == "Player 2")
+        {
+            return Input.GetAxis("Jump2") == 1;
+        }
+
+        return false;
     }
 
     void jump()
@@ -140,21 +157,29 @@ public class advancedMovement : MonoBehaviour {
             wallRunning = false;
             doubleJump = true;
         }
-
-
-        
-
 	}
 
     private Vector2 GetInput()
     {
+        Vector2 input = new Vector2();
 
-        Vector2 input = new Vector2
+        if (this.gameObject.tag == "Player")
         {
-            x = CrossPlatformInputManager.GetAxis("Horizontal"),
-            y = CrossPlatformInputManager.GetAxis("Vertical")
-        };
-        
+            input = new Vector2
+            {
+                x = CrossPlatformInputManager.GetAxis("Horizontal1"),
+                y = CrossPlatformInputManager.GetAxis("Vertical1")
+            };
+        }
+        else if (this.gameObject.tag == "Player 2")
+        {
+            input = new Vector2
+            {
+                x = CrossPlatformInputManager.GetAxis("Horizontal2"),
+                y = CrossPlatformInputManager.GetAxis("Vertical2")
+            };
+        }
+
         return input;
     }
 }

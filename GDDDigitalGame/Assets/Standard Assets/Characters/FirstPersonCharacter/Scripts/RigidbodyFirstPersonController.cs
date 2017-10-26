@@ -131,7 +131,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump && gameObject.tag == "Player")
+            {
+                m_Jump = true;
+            } else if (CrossPlatformInputManager.GetButtonDown("Jump2") && !m_Jump && gameObject.tag == "Player 2")
             {
                 m_Jump = true;
             }
@@ -216,13 +219,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Vector2 GetInput()
         {
-
-            Vector2 input = new Vector2
+            Vector2 input = new Vector2(0,0);
+            if (this.gameObject.tag == "Player")
+            {
+                input = new Vector2
                 {
-                    x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                    y = CrossPlatformInputManager.GetAxis("Vertical")
+                    x = CrossPlatformInputManager.GetAxis("Horizontal1"),
+                    y = CrossPlatformInputManager.GetAxis("Vertical1")
                 };
-			movementSettings.UpdateDesiredTargetSpeed(input);
+            }
+            else if (this.gameObject.tag == "Player 2")
+            {
+                input = new Vector2
+                {
+                    x = CrossPlatformInputManager.GetAxis("Horizontal2"),
+                    y = CrossPlatformInputManager.GetAxis("Vertical2")
+                };
+            }
+            movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
         }
 

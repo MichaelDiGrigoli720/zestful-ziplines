@@ -28,13 +28,25 @@ public class Zipline : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.Mouse0) && !isFlying && elapsedTime == 0.0f)
-		{
-			findLocation();
-			elapsedTime = reloadTime;
-		}
+        if(this.gameObject.tag == "Player")
+        {
+            if ((Input.GetAxis("Fire1") == 1) && !isFlying && elapsedTime == 0.0f)
+            {
+                findLocation();
+                elapsedTime = reloadTime;
+            }
+        }
 
-		if(isFlying)
+        if (this.gameObject.tag == "Player 2")
+        {
+            if ((Input.GetAxis("Fire2") == 1) && !isFlying && elapsedTime == 0.0f)
+            {
+                findLocation();
+                elapsedTime = reloadTime;
+            }
+        }
+
+        if (isFlying)
 		{
 			fpcRigidBody.useGravity = false;
 			//transform.position = Vector3.MoveTowards(transform.position, loc, speed * Time.deltaTime);
@@ -61,7 +73,7 @@ public class Zipline : MonoBehaviour
 			fpcRigidBody.drag = 5;
 		}
 
-		if (Input.GetKey(KeyCode.LeftControl) && isFlying)
+		if ((Input.GetAxis("WallDisengage") == 1) && isFlying)
 		{
 			isFlying = false;
 			FPC.canMove = true;
@@ -69,7 +81,15 @@ public class Zipline : MonoBehaviour
 			fpcRigidBody.drag = 5;
 		}
 
-		if(elapsedTime != 0)
+        else if ((Input.GetAxis("WallDisengage2") == 1) && isFlying)
+        {
+            isFlying = false;
+            FPC.canMove = true;
+            lineRenderer.enabled = false;
+            fpcRigidBody.drag = 5;
+        }
+
+        if (elapsedTime != 0)
 		{
 			elapsedTime -= Time.deltaTime;
 
