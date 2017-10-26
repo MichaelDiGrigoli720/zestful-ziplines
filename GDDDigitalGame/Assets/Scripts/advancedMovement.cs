@@ -60,7 +60,7 @@ public class advancedMovement : MonoBehaviour {
         if(gameObject.tag == "Player")
         {
             return Input.GetAxis("Jump") == 1;
-        } else if (gameObject.tag == "Player2")
+        } else if (gameObject.tag == "Player 2")
         {
             return Input.GetAxis("Jump2") == 1;
         }
@@ -69,7 +69,16 @@ public class advancedMovement : MonoBehaviour {
     }
     bool checkLCtrlDown()
     {
-        return Input.GetAxis("WallDisengage") == 1;
+        if (gameObject.tag == "Player")
+        {
+            return Input.GetAxis("WallDisengage") == 1;
+        }
+        else if (gameObject.tag == "Player 2")
+        {
+            return Input.GetAxis("WallDisengage2") == 1;
+        }
+
+        return false;
     }
     bool checkJump()
     {
