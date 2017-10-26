@@ -15,7 +15,7 @@ public class Hazard : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
         GameObject gObj = collision.gameObject;
-        if (gObj.tag == "Player") {
+        if (gObj.tag == "Player" || gObj.tag == "Player 2") {
 			//Transform camTransform = gObj.GetComponent<Transform>().GetChild(0).GetComponent<Transform>();
 			//camTransform.position -= camTransform.forward * 3;
 
