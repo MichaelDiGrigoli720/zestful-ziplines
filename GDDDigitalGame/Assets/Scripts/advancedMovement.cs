@@ -59,10 +59,10 @@ public class advancedMovement : MonoBehaviour {
     {
         if(gameObject.tag == "Player")
         {
-            return Input.GetAxis("Jump") == 1;
+            return Input.GetButton("Jump");
         } else if (gameObject.tag == "Player 2")
         {
-            return Input.GetAxis("Jump2") == 1;
+            return Input.GetButton("Jump2");
         }
 
         return false;
@@ -71,11 +71,11 @@ public class advancedMovement : MonoBehaviour {
     {
         if (gameObject.tag == "Player")
         {
-            return Input.GetAxis("WallDisengage") == 1;
+            return Input.GetButton("WallDisengage");
         }
         else if (gameObject.tag == "Player 2")
         {
-            return Input.GetAxis("WallDisengage2") == 1;
+            return Input.GetButton("WallDisengage2");
         }
 
         return false;
@@ -84,11 +84,11 @@ public class advancedMovement : MonoBehaviour {
     {
         if (this.gameObject.tag == "Player")
         {
-            return Input.GetAxis("Jump") == 1;
+            return Input.GetButtonDown("Jump");
         }
         else if (this.gameObject.tag == "Player 2")
         {
-            return Input.GetAxis("Jump2") == 1;
+            return Input.GetButtonDown("Jump2");
         }
 
         return false;

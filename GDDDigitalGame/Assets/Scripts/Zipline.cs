@@ -56,10 +56,12 @@ public class Zipline : MonoBehaviour
 			pathNorm = pathNorm.normalized;
 			fpcRigidBody.velocity = pathNorm * speed;
 
-			lineRenderer.SetPosition(0, ziplineStart.position);
+            lineRenderer.startColor = Color.green;
+            lineRenderer.endColor = Color.green;
+            lineRenderer.SetPosition(0, ziplineStart.position);
 			//elapsedtime += Time.deltaTime;
 
-			if (Vector3.Distance(transform.position, loc) < 5 && !Input.GetKey(KeyCode.Mouse0))
+			if (Vector3.Distance(transform.position, loc) < 5 && !Input.GetButton("Fire1"))
 			{
 				isFlying = false;
 				FPC.canMove = true;
@@ -73,15 +75,14 @@ public class Zipline : MonoBehaviour
 			fpcRigidBody.drag = 5;
 		}
 
-		if ((Input.GetAxis("WallDisengage") == 1) && isFlying)
+		if ((Input.GetAxis("ZipDisengage") == 1) && isFlying && gameObject.tag == "Player")
 		{
 			isFlying = false;
 			FPC.canMove = true;
 			lineRenderer.enabled = false;
 			fpcRigidBody.drag = 5;
 		}
-
-        else if ((Input.GetAxis("WallDisengage2") == 1) && isFlying)
+        else if ((Input.GetAxis("ZipDisengage2") == 1) && isFlying && gameObject.tag == "Player 2")
         {
             isFlying = false;
             FPC.canMove = true;
