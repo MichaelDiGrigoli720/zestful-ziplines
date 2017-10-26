@@ -57,11 +57,11 @@ public class Zipline : MonoBehaviour
 
 		else if(!isFlying && fpcRigidBody.useGravity == false)
 		{
-			//fpcRigidBody.useGravity = true;
+			fpcRigidBody.useGravity = true;
 			fpcRigidBody.drag = 5;
 		}
 
-		if (Input.GetKey(KeyCode.LeftControl) && isFlying)
+		if (Input.GetKey(KeyCode.Space) && isFlying)
 		{
 			isFlying = false;
 			FPC.canMove = true;
