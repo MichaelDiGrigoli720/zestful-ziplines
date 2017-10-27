@@ -14,7 +14,6 @@ public class advancedMovement : MonoBehaviour {
     private Vector3 dir;
     private bool jumpCom;
     private Zipline zip;
-
     public bool doubleJump;
 
     public float thrust = 60;
@@ -110,7 +109,7 @@ public class advancedMovement : MonoBehaviour {
         spaceDown = !checkSpaceDown(); // this is specifically for wallrunning
         bool lctrlDown = checkLCtrlDown();
         //Advanced movement is for aerial stuff
-        if (!isGrounded())
+        if (!isGrounded() && !gameObject.GetComponent<Death>().IsDead)
         {
             jumpCom = checkJump();
             //Checks for start wallrun
@@ -146,20 +145,20 @@ public class advancedMovement : MonoBehaviour {
                 wallRunning = false;
                 rb.AddForce(dir * thrust, ForceMode.Impulse);
                 jump();
-                Debug.Log("endWallrunWithJump");
+                
             }
             if(wallRunning && lctrlDown)
             {
                 wallRunning = false;
                 rb.AddForce(dir * (thrust / 10), ForceMode.Impulse);
-                Debug.Log("endWallrunWithoutJump");
+                
             }
             //checks if no longer colliding to end wallrun
             if (!collided)
             {
                 wallRunning = false;
             }
-            Debug.Log(rb.useGravity);
+            
         }
         if (isGrounded())
         {

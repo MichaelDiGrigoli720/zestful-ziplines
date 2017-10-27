@@ -28,7 +28,7 @@ public class Zipline : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-        if(this.gameObject.tag == "Player")
+        if(this.gameObject.tag == "Player" && !gameObject.GetComponent<Death>().IsDead)
         {
             if ((Input.GetAxis("Fire1") == 1) && !isFlying && elapsedTime == 0.0f)
             {
@@ -37,7 +37,7 @@ public class Zipline : MonoBehaviour
             }
         }
 
-        if (this.gameObject.tag == "Player 2")
+        if (this.gameObject.tag == "Player 2" && !gameObject.GetComponent<Death>().IsDead)
         {
             if ((Input.GetAxis("Fire2") == 1) && !isFlying && elapsedTime == 0.0f)
             {
