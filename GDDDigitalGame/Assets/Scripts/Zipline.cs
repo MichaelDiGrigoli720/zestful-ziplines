@@ -19,6 +19,7 @@ public class Zipline : MonoBehaviour
 	private float elapsedTime = 0.0f; //Time since last shot
 	public Rigidbody fpcRigidBody; // the FPC Rigidbody component
 	private GameObject curProj; //The current projectile shot
+	private RaycastHit hit;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +33,7 @@ public class Zipline : MonoBehaviour
         {
             if ((Input.GetAxis("Fire1") == 1) && !isFlying && elapsedTime == 0.0f)
             {
-                findLocation();
+                findLocation(FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
                 elapsedTime = reloadTime;
             }
         }
@@ -41,7 +42,7 @@ public class Zipline : MonoBehaviour
         {
             if ((Input.GetAxis("Fire2") == 1) && !isFlying && elapsedTime == 0.0f)
             {
-                findLocation();
+                findLocation(FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
                 elapsedTime = reloadTime;
             }
         }
@@ -101,10 +102,37 @@ public class Zipline : MonoBehaviour
 		}
 	}
 
-	public void findLocation()
+	public void findLocation(Vector3 position, Quaternion rotation)
 	{
-		curProj = (GameObject)Instantiate(projectile, FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
-		curProj.GetComponent<Projectile>().firedBy = this;
-		Destroy(curProj, 5.0f);
+		if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
+		{
+			if(hit.collider.tag == "Player" || hit.collider.tag == "Player 2")
+			{
+				Zipline otherPlayerZip = hit.collider.gameObject.GetComponent<Zipline>();
+				RaycastHit hit2;
+				if(Physics.Raycast(otherPlayerZip.cam.transform.position, cam.transform.forward, out hit2))
+				{
+					otherPlayerZip.loc = hit2.point;
+					otherPlayerZip.isFlying = true;
+					otherPlayerZip.fpcRigidBody.velocity = Vector3.zero;
+					otherPlayerZip.FPC.canMove = false;
+					otherPlayerZip.lineRenderer.SetPosition(1, otherPlayerZip.loc);
+					otherPlayerZip.lineRenderer.enabled = true;
+				}
+			}
+
+			else
+			{
+				loc = hit.point;
+				isFlying = true;
+				fpcRigidBody.velocity = Vector3.zero;
+				FPC.canMove = false;
+				lineRenderer.SetPosition(1, loc);
+				lineRenderer.enabled = true;
+			}
+		}
+		//curProj = (GameObject)Instantiate(projectile, position, rotation);
+		//curProj.GetComponent<Projectile>().firedBy = this;
+		//Destroy(curProj, 5.0f);
 	}
 }
