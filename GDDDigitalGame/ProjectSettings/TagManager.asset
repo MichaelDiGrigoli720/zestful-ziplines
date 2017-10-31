@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hazard
   - Player 2
+  - Projectile
   layers:
   - Default
   - TransparentFX
