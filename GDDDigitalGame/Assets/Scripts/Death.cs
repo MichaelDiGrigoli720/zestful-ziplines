@@ -36,7 +36,8 @@ public class Death : MonoBehaviour {
 	public IEnumerator Respawn(float timeOut) {
         isDead = true;
 		yield return new WaitForSeconds(timeOut);
-		//t.GetChild(0).GetComponent<Transform>().position = initCamPos;
+        //t.GetChild(0).GetComponent<Transform>().position = initCamPos;
+        Destroy(GameObject.Find("deathText(Clone)"));
         t.position = startPoint;
 		moveScript.enabled = true;
         //zipScript.IsFlying = true;
