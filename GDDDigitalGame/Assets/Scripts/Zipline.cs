@@ -19,6 +19,10 @@ public class Zipline : MonoBehaviour
 	private float elapsedTime = 0.0f; //Time since last shot
 	public Rigidbody fpcRigidBody; // the FPC Rigidbody component
 	private GameObject curProj; //The current projectile shot
+	private RaycastHit hit;
+	private bool doCast = false;
+	private bool hooked = false;
+	//private Vector3 hookedLoc = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +36,8 @@ public class Zipline : MonoBehaviour
         {
             if ((Input.GetAxis("Fire1") == 1) && !isFlying && elapsedTime == 0.0f)
             {
-                findLocation();
+				spawnProj(cam.transform.position, cam.transform.rotation);
+                //findLocation(FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
                 elapsedTime = reloadTime;
             }
         }
@@ -41,10 +46,14 @@ public class Zipline : MonoBehaviour
         {
             if ((Input.GetAxis("Fire2") == 1) && !isFlying && elapsedTime == 0.0f)
             {
-                findLocation();
+				spawnProj(cam.transform.position, cam.transform.rotation);
+				doCast = true;
                 elapsedTime = reloadTime;
             }
         }
+
+        if(doCast)
+			findLocation();
 
         if (isFlying)
 		{
@@ -66,6 +75,7 @@ public class Zipline : MonoBehaviour
 				isFlying = false;
 				FPC.canMove = true;
 				lineRenderer.enabled = false;
+				hooked = false;
 			}
 		}
 
@@ -81,6 +91,7 @@ public class Zipline : MonoBehaviour
 			FPC.canMove = true;
 			lineRenderer.enabled = false;
 			fpcRigidBody.drag = 5;
+			hooked = false;
 		}
         else if ((Input.GetAxis("ZipDisengage2") == 1) && isFlying && gameObject.tag == "Player 2")
         {
@@ -88,6 +99,7 @@ public class Zipline : MonoBehaviour
             FPC.canMove = true;
             lineRenderer.enabled = false;
             fpcRigidBody.drag = 5;
+            hooked = false;
         }
 
         if (elapsedTime != 0)
@@ -103,8 +115,60 @@ public class Zipline : MonoBehaviour
 
 	public void findLocation()
 	{
-		curProj = (GameObject)Instantiate(projectile, FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
-		curProj.GetComponent<Projectile>().firedBy = this;
+		//curProj.GetComponent<Projectile>().firedBy = this;
+
+		if(hooked)
+		{
+			//loc = hit.point;
+			//isFlying = true;
+			//fpcRigidBody.velocity = Vector3.zero;
+			//FPC.canMove = false;
+			//lineRenderer.enabled = true;
+			//doCast = false;
+			if(curProj != null)
+				lineRenderer.SetPosition(1, curProj.transform.position);
+		}
+
+		else
+		{
+			if(Physics.Raycast(cam.transform.position, curProj.transform.position - cam.transform.position, out hit))
+			{
+				if(hit.collider.tag == "Player" || hit.collider.tag == "Player 2")
+				{
+					Zipline otherPlayerZip = hit.collider.gameObject.GetComponent<Zipline>();
+					RaycastHit hit2;
+					if(Physics.Raycast(otherPlayerZip.cam.transform.position, curProj.transform.position - cam.transform.position, out hit2))
+					{
+						otherPlayerZip.loc = hit2.point;
+						otherPlayerZip.isFlying = true;
+						otherPlayerZip.fpcRigidBody.velocity = Vector3.zero;
+						otherPlayerZip.FPC.canMove = false;
+						otherPlayerZip.lineRenderer.SetPosition(1, curProj.transform.position);
+						otherPlayerZip.lineRenderer.enabled = true;
+						otherPlayerZip.hooked = true;
+						otherPlayerZip.spawnProj(otherPlayerZip.transform.position, curProj.transform.rotation);
+						otherPlayerZip.doCast = true;
+						doCast = false;
+					}
+				}
+
+				else if(hit.collider.tag != "Projectile")
+				{
+					loc = hit.point;
+					isFlying = true;
+					fpcRigidBody.velocity = Vector3.zero;
+					FPC.canMove = false;
+					lineRenderer.enabled = true;
+					lineRenderer.SetPosition(1, hit.point);
+					doCast = false;
+				}
+			}
+		}
+	}
+
+	private void spawnProj(Vector3 pos, Quaternion rot) {
+		curProj = (GameObject)Instantiate(projectile, pos + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), rot);
+		doCast = true;
 		Destroy(curProj, 5.0f);
 	}
 }

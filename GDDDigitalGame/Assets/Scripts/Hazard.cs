@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hazard : MonoBehaviour {
+    public GameObject text;
+
 	// Use this for initialization
 	void Start () {
 		this.gameObject.tag = "Hazard";
@@ -20,6 +22,7 @@ public class Hazard : MonoBehaviour {
 			//camTransform.position -= camTransform.forward * 3;
 
 			(gObj.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
+            Instantiate(text,gObj.transform);
             IEnumerator coroute = gObj.GetComponent<Death>().Respawn(5.0f);
 			StartCoroutine(coroute);
 		}

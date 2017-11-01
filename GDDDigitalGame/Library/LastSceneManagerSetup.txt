@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/jacktestScene.unity
+=======
+- path: Assets/Scenes/Main.unity
+>>>>>>> 2ca38e3b0bdb647c62b755f81113cfc96b3f7ede
   isLoaded: 1
   isActive: 1
