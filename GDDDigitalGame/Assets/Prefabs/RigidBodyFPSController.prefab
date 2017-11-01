@@ -221,6 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {x: 10, y: 10, z: 10}
+  gameManager: {fileID: 0}
+  isDead: 0
 --- !u!114 &114423887885103032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0857a5b03abc9fc459eb24d5d0e554f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collided: 0
+  wallRunning: 0
   doubleJump: 0
   thrust: 60
   jumpForce: 60
@@ -296,7 +300,7 @@ MonoBehaviour:
     slowDownRate: 20
     airControl: 0
     shellOffset: 0
-  drag: 0.99
+  drag: 0.999
 --- !u!114 &114658328270589422
 MonoBehaviour:
   m_ObjectHideFlags: 1

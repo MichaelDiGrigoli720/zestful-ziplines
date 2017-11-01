@@ -1,5 +1,6 @@
-2017.1.1f1:3.3.0.2
+2017.1.2f1:2.3.0.0
 StandaloneWindows
+<<<<<<< HEAD
 D:/unity/Editor/Data/Managed/UnityEditor.dll
 D:/unity/Editor/Data/Managed/UnityEngine.dll
 D:/unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll
@@ -23,3 +24,12 @@ D:/unity/Editor/Data/Managed/UnityEditor.Graphs.dll
 D:/unity/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 D:/unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll
 C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll
+=======
+C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll
+C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll
+C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll
+C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll
+C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll
+C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll
+C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/2015/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll
+>>>>>>> 1d45b92812262c21e0ad26692da82ea343e3b0ff

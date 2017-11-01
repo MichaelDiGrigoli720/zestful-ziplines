@@ -128,13 +128,22 @@ public class Zipline : MonoBehaviour
 			if(curProj != null)
 				lineRenderer.SetPosition(1, curProj.transform.position);
 		}
-
 		else
 		{
+            if(curProj == null)
+            {
+                return;
+            }
 			if(Physics.Raycast(cam.transform.position, curProj.transform.position - cam.transform.position, out hit))
 			{
 				if(hit.collider.tag == "Player" || hit.collider.tag == "Player 2")
 				{
+                    if (hit.collider.GetComponent<advancedMovement>().collided == true && !hit.collider.GetComponent<Death>().isDead)
+                    {
+                        hit.collider.GetComponent<Death>().Kill(gameObject);
+                        return;
+                    }
+
 					Zipline otherPlayerZip = hit.collider.gameObject.GetComponent<Zipline>();
 					RaycastHit hit2;
 					if(Physics.Raycast(otherPlayerZip.cam.transform.position, curProj.transform.position - cam.transform.position, out hit2))

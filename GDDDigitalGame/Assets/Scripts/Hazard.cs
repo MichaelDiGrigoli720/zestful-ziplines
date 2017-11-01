@@ -23,6 +23,7 @@ public class Hazard : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
         GameObject gObj = collision.gameObject;
         if (gObj.tag == "Player" || gObj.tag == "Player 2") {
+<<<<<<< HEAD
 			//Transform camTransform = gObj.GetComponent<Transform>().GetChild(0).GetComponent<Transform>();
 			//camTransform.position -= camTransform.forward * 3;
 
@@ -31,6 +32,9 @@ public class Hazard : MonoBehaviour {
             text.text = "You Are Dead. Respawn in " + 5 + " seconds.";
             IEnumerator coroute = gObj.GetComponent<Death>().Respawn(5.0f);
 			StartCoroutine(coroute);
+=======
+            gObj.GetComponent<Death>().Kill(null);
+>>>>>>> 1d45b92812262c21e0ad26692da82ea343e3b0ff
 		}
 	}
 }
