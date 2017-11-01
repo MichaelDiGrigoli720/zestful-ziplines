@@ -18,13 +18,7 @@ public class Hazard : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
         GameObject gObj = collision.gameObject;
         if (gObj.tag == "Player" || gObj.tag == "Player 2") {
-			//Transform camTransform = gObj.GetComponent<Transform>().GetChild(0).GetComponent<Transform>();
-			//camTransform.position -= camTransform.forward * 3;
-
-			(gObj.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
-            Instantiate(text,gObj.transform);
-            IEnumerator coroute = gObj.GetComponent<Death>().Respawn(5.0f);
-			StartCoroutine(coroute);
+            gObj.GetComponent<Death>().Kill(null);
 		}
 	}
 }

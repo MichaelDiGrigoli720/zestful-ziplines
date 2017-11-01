@@ -90,7 +90,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1293549836351534}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.15334342, z: 0, w: 0.988173}
   m_LocalPosition: {x: 10, y: 10, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -105,7 +105,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927302708780592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.016597906, y: 0, z: 0, w: 0.99986225}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -311,7 +311,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    CurrentTargetSpeed: 8
+    CurrentTargetSpeed: 16
   mouseLook:
     XSensitivity: 2
     YSensitivity: 2
@@ -327,7 +327,7 @@ MonoBehaviour:
     slowDownRate: 20
     airControl: 0
     shellOffset: 0
-  drag: 0.99
+  drag: 0.999
 --- !u!114 &114413471675256664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,13 +343,13 @@ MonoBehaviour:
   projectile: {fileID: 1826956235528656, guid: f3248ca7323624ea18f087b3f67384c3, type: 2}
   maxRange: 99999
   isFlying: 0
-  loc: {x: 0, y: 0, z: 0}
+  loc: {x: 23.900002, y: 11.216991, z: -2.251706}
   speed: 20
   reloadTime: 1
   ziplineStart: {fileID: 4243377873343672}
   FPC: {fileID: 114260304692134566}
   lineRenderer: {fileID: 120485922614225184}
-  fpcRigidBody: {fileID: 0}
+  fpcRigidBody: {fileID: 54209309479332664}
 --- !u!114 &114795000238117010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,7 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0857a5b03abc9fc459eb24d5d0e554f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doubleJump: 0
+  collided: 0
+  wallRunning: 0
+  doubleJump: 1
   thrust: 60
   jumpForce: 60
   cam: {fileID: 20827454372332304}
@@ -396,7 +398,7 @@ LineRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1293549836351534}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 0
@@ -423,8 +425,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 19.482664, y: 9.159038, z: -2.894897}
+  - {x: 23.900002, y: 11.216991, z: -2.251706}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.25
@@ -442,8 +444,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.99264705, b: 0.088995695, a: 1}
-      key1: {r: 0, g: 0.99215686, b: 0.09019608, a: 1}
+      key0: {r: 0, g: 1, b: 0, a: 1}
+      key1: {r: 0, g: 1, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Death : MonoBehaviour {
 	public Vector3 startPoint = Vector3.zero;
+    public GameObject gameManager;
+    private gameMan GameManager;
 
-    private bool isDead;
+    public bool isDead;
 
     public bool IsDead
     {
@@ -20,6 +22,7 @@ public class Death : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameManager = gameManager.GetComponent<gameMan>();
 		moveScript = GetComponent("RigidbodyFirstPersonController") as MonoBehaviour;
         isDead = false;
         //zipScript = GetComponent<Zipline>();
@@ -32,6 +35,16 @@ public class Death : MonoBehaviour {
 	void Update () {
 
 	}
+
+    public void Kill(GameObject playerWhoKilled)
+    {
+        if (playerWhoKilled != null) 
+            GameManager.incrementPlayerScore(playerWhoKilled);
+
+		(gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
+        IEnumerator coroute = Respawn(5.0f);
+		StartCoroutine(coroute);
+    }
 
 	public IEnumerator Respawn(float timeOut) {
         isDead = true;
