@@ -70,11 +70,11 @@ public class advancedMovement : MonoBehaviour {
     {
         if (gameObject.tag == "Player")
         {
-            return Input.GetButton("WallDisengage");
+            return Input.GetButton("ZipDisengage");
         }
         else if (gameObject.tag == "Player 2")
         {
-            return Input.GetButton("WallDisengage2");
+            return Input.GetButton("ZipDisengage2");
         }
 
         return false;
