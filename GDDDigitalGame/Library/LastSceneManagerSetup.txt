@@ -1,4 +1,16 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/LevelSelector.unity
+=======
+<<<<<<< HEAD
+- path: Assets/Scenes/MichaelTest.unity
+=======
+<<<<<<< HEAD
+- path: Assets/Scenes/jacktestScene.unity
+=======
+- path: Assets/Scenes/Main.unity
+>>>>>>> 2ca38e3b0bdb647c62b755f81113cfc96b3f7ede
+>>>>>>> 1d45b92812262c21e0ad26692da82ea343e3b0ff
+>>>>>>> ed4a2e340db7e02ff66361e6f902eff54d7d3000
   isLoaded: 1
   isActive: 1

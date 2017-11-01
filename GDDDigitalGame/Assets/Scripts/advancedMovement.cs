@@ -6,9 +6,9 @@ using UnityStandardAssets.CrossPlatformInput;
 public class advancedMovement : MonoBehaviour {
 
     private float distToGround;
-    private bool collided;
+    public bool collided;
     private bool spaceDown;
-    private bool wallRunning;
+    public bool wallRunning;
     private float myY;
     private Rigidbody rb;
     private Vector3 dir;
@@ -70,11 +70,11 @@ public class advancedMovement : MonoBehaviour {
     {
         if (gameObject.tag == "Player")
         {
-            return Input.GetButton("WallDisengage");
+            return Input.GetButton("ZipDisengage");
         }
         else if (gameObject.tag == "Player 2")
         {
-            return Input.GetButton("WallDisengage2");
+            return Input.GetButton("ZipDisengage2");
         }
 
         return false;
