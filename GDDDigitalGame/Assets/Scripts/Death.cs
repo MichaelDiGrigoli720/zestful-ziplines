@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Death : MonoBehaviour {
 	public Vector3 startPoint = Vector3.zero;
 
     private bool isDead;
+    private Text text;
 
     public bool IsDead
     {
@@ -26,7 +28,10 @@ public class Death : MonoBehaviour {
 
         t = GetComponent<Transform>();
 		initCamPos = t.position;
-	}
+        GameObject Canvas = GameObject.Find("Canvas");
+        Transform child = Canvas.transform.Find("Text");
+        text = child.GetComponent<Text>();
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -37,7 +42,7 @@ public class Death : MonoBehaviour {
         isDead = true;
 		yield return new WaitForSeconds(timeOut);
         //t.GetChild(0).GetComponent<Transform>().position = initCamPos;
-        Destroy(GameObject.Find("deathText(Clone)"));
+        text.enabled = false;
         t.position = startPoint;
 		moveScript.enabled = true;
         //zipScript.IsFlying = true;
