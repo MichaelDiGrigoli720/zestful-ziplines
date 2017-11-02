@@ -7,13 +7,10 @@ public class Death : MonoBehaviour {
 	public Vector3 startPoint = Vector3.zero;
     public GameObject gameManager;
     private gameMan GameManager;
-
-<<<<<<< HEAD
-    private bool isDead;
-    private Text text;
-=======
+    
+    public Text text;
     public bool isDead;
->>>>>>> 1d45b92812262c21e0ad26692da82ea343e3b0ff
+    public float tim = 5.0f;
 
     public bool IsDead
     {
@@ -35,29 +32,37 @@ public class Death : MonoBehaviour {
 
         t = GetComponent<Transform>();
 		initCamPos = t.position;
-        GameObject Canvas = GameObject.Find("Canvas");
-        Transform child = Canvas.transform.Find("Text");
-        text = child.GetComponent<Text>();
     }
 
 	// Update is called once per frame
 	void Update () {
+        if(isDead)
+        {
+            text.text = "You Are Dead. Respawn in " + ((int)tim+1) + " seconds.";
+            tim -= Time.deltaTime;
+        }
 
 	}
 
     public void Kill(GameObject playerWhoKilled)
     {
-        if (playerWhoKilled != null) 
-            GameManager.incrementPlayerScore(playerWhoKilled);
+        if (!isDead)
+        {
+            tim = 5.0f;
+            if (playerWhoKilled != null)
+                GameManager.incrementPlayerScore(playerWhoKilled);
 
-		(gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
-        IEnumerator coroute = Respawn(5.0f);
-		StartCoroutine(coroute);
+            (gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
+            text.text = "You Are Dead. Respawn in " + tim + " seconds.";
+            text.enabled = true;
+            IEnumerator coroute = Respawn(tim);
+            StartCoroutine(coroute);
+        }
     }
 
 	public IEnumerator Respawn(float timeOut) {
         isDead = true;
-		yield return new WaitForSeconds(timeOut);
+        yield return new WaitForSeconds(timeOut);
         //t.GetChild(0).GetComponent<Transform>().position = initCamPos;
         text.enabled = false;
         t.position = startPoint;
