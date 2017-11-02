@@ -8,14 +8,12 @@ public class Death : MonoBehaviour {
     public GameObject gameManager;
     private gameMan GameManager;
     
-<<<<<<< HEAD
-    private bool isDead;
-    private Text text;
-=======
-    public Text text;
+
     public bool isDead;
+    public Text text;
+
     public float tim = 5.0f;
->>>>>>> e208657246f7d939259ba8b2e7826a6b0b55b91a
+
 
     public bool IsDead
     {
@@ -51,16 +49,14 @@ public class Death : MonoBehaviour {
 
     public void Kill()
     {
-<<<<<<< HEAD
+
     
         GameManager.incrementPlayerScore(gameObject);
-=======
+
         if (!isDead)
         {
             tim = 5.0f;
-            if (playerWhoKilled != null)
-                GameManager.incrementPlayerScore(playerWhoKilled);
->>>>>>> e208657246f7d939259ba8b2e7826a6b0b55b91a
+           
 
             (gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
             text.text = "You Are Dead. Respawn in " + tim + " seconds.";

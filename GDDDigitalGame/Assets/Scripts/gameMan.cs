@@ -70,7 +70,7 @@ public class gameMan : MonoBehaviour
     /// <param name="index"></param>
     public void incrementPlayerScore(GameObject player)
     {
-        int playerNum = -1;
+        int playerNum = 0;
         for (int i = 0; i < players.Length; i++)
         {
            
