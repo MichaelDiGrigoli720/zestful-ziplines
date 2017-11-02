@@ -136,9 +136,11 @@ public class Zipline : MonoBehaviour
             }
 			if(Physics.Raycast(cam.transform.position, curProj.transform.position - cam.transform.position, out hit))
 			{
+                advancedMovement am = hit.collider.GetComponent<advancedMovement>();
+
 				if(hit.collider.tag == "Player" || hit.collider.tag == "Player 2")
 				{
-                    if (hit.collider.GetComponent<advancedMovement>().collided == true && !hit.collider.GetComponent<Death>().IsDead)
+                    if (am.collided == true && !hit.collider.GetComponent<Death>().IsDead && !am.isGrounded())
                     {
                         hit.collider.GetComponent<Death>().Kill();
                         return;

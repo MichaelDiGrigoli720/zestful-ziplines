@@ -12,7 +12,7 @@ public class Death : MonoBehaviour {
     public bool isDead;
     public Text text;
 
-    public float tim = 5.0f;
+    public float time = 5.0f;
 
 
     public bool IsDead
@@ -41,27 +41,24 @@ public class Death : MonoBehaviour {
 	void Update () {
         if(isDead)
         {
-            text.text = "You Are Dead. Respawn in " + ((int)tim+1) + " seconds.";
-            tim -= Time.deltaTime;
+            text.text = "You Are Dead. Respawn in " + ((int)time+1) + " seconds.";
+            time -= Time.deltaTime;
         }
 
 	}
 
     public void Kill()
     {
-
-    
         GameManager.incrementPlayerScore(gameObject);
 
         if (!isDead)
         {
-            tim = 5.0f;
-           
+            time = 5.0f;
 
             (gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
-            text.text = "You Are Dead. Respawn in " + tim + " seconds.";
+            text.text = "You Are Dead. Respawn in " + time + " seconds.";
             text.enabled = true;
-            IEnumerator coroute = Respawn(tim);
+            IEnumerator coroute = Respawn(time);
             StartCoroutine(coroute);
         }
     }

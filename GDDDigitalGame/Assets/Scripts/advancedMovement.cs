@@ -27,7 +27,6 @@ public class advancedMovement : MonoBehaviour {
         dir = c.contacts[0].point - transform.position;
         // We then get the opposite (-Vector3) and normalize it
         dir = -dir.normalized;
-
     }
 
     public void OnCollisionExit()
@@ -46,7 +45,7 @@ public class advancedMovement : MonoBehaviour {
         zip = this.gameObject.GetComponent<Zipline>();
     }
 
-    bool isGrounded()
+    public bool isGrounded()
     {
         RaycastHit hit;
         Physics.Raycast(transform.position, -Vector3.up, out hit);
