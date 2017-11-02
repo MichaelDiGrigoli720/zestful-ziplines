@@ -138,9 +138,9 @@ public class Zipline : MonoBehaviour
 			{
 				if(hit.collider.tag == "Player" || hit.collider.tag == "Player 2")
 				{
-                    if (hit.collider.GetComponent<advancedMovement>().collided == true && !hit.collider.GetComponent<Death>().isDead)
+                    if (hit.collider.GetComponent<advancedMovement>().collided == true && !hit.collider.GetComponent<Death>().IsDead)
                     {
-                        hit.collider.GetComponent<Death>().Kill(gameObject);
+                        hit.collider.GetComponent<Death>().Kill();
                         return;
                     }
 

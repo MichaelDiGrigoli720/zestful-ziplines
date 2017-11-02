@@ -7,13 +7,9 @@ public class Death : MonoBehaviour {
 	public Vector3 startPoint = Vector3.zero;
     public GameObject gameManager;
     private gameMan GameManager;
-
-<<<<<<< HEAD
+    
     private bool isDead;
     private Text text;
-=======
-    public bool isDead;
->>>>>>> 1d45b92812262c21e0ad26692da82ea343e3b0ff
 
     public bool IsDead
     {
@@ -45,10 +41,10 @@ public class Death : MonoBehaviour {
 
 	}
 
-    public void Kill(GameObject playerWhoKilled)
+    public void Kill()
     {
-        if (playerWhoKilled != null) 
-            GameManager.incrementPlayerScore(playerWhoKilled);
+    
+        GameManager.incrementPlayerScore(gameObject);
 
 		(gameObject.GetComponent("RigidbodyFirstPersonController") as MonoBehaviour).enabled = false;
         IEnumerator coroute = Respawn(5.0f);

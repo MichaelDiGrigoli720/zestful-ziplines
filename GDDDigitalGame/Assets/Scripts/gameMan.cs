@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameMan : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class gameMan : MonoBehaviour
     public int goalSetter = 10;
     public int numPlayers = 2;
 
+    public Text[] textArr = new Text[2];
+
     // Use this for initialization
     void Start()
     {
@@ -25,7 +28,9 @@ public class gameMan : MonoBehaviour
 
         players = new GameObject[numPlayers];
 
-        for(int i = 0; i < numPlayers; i++)
+        score = new int[numPlayers];
+
+        for (int i = 0; i < numPlayers; i++)
         {
             if(i == 0)
             {
@@ -36,10 +41,12 @@ public class gameMan : MonoBehaviour
             {
                 players[i] = GameObject.FindGameObjectsWithTag("Player " + (i + 1))[0];
             }
+            textArr[i].text = "Stocks Left: " + goalPoints;
+            score[i] = goalPoints;
         }
         
 
-        score = new int[numPlayers];
+        
     }
 
     // Update is called once per frame
@@ -75,7 +82,8 @@ public class gameMan : MonoBehaviour
         
         if(playerNum >= 0)
         {
-            score[playerNum]++;
+            score[playerNum]--;
+            textArr[playerNum].text = "Stocks left: " + score[playerNum];
         }
 
         Debug.Log(score[playerNum]);
