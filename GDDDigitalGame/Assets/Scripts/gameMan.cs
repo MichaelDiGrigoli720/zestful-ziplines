@@ -35,7 +35,7 @@ public class gameMan : MonoBehaviour
             if(i == 0)
             {
                 players[i] = GameObject.FindGameObjectsWithTag("Player")[0];
-                
+
             }
             else
             {
@@ -44,9 +44,9 @@ public class gameMan : MonoBehaviour
             textArr[i].text = "Stocks Left: " + goalPoints;
             score[i] = goalPoints;
         }
-        
 
-        
+
+
     }
 
     // Update is called once per frame
@@ -73,20 +73,19 @@ public class gameMan : MonoBehaviour
         int playerNum = 0;
         for (int i = 0; i < players.Length; i++)
         {
-           
+
             if (players[i] == player)
             {
                 playerNum = i;
             }
         }
-        
+
         if(playerNum >= 0)
         {
             score[playerNum]--;
             textArr[playerNum].text = "Stocks left: " + score[playerNum];
         }
 
-        Debug.Log(score[playerNum]);
     }
 
     /// <summary>

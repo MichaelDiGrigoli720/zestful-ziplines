@@ -7,7 +7,7 @@ public class Death : MonoBehaviour {
 	public Vector3 startPoint = Vector3.zero;
     public GameObject gameManager;
     private gameMan GameManager;
-    
+
 
     public bool isDead;
     public Text text;
@@ -22,7 +22,6 @@ public class Death : MonoBehaviour {
     }
 
 	private MonoBehaviour moveScript;
-	//private Zipline zipScript;
     private Transform t;
 	private Vector3 initCamPos;
 
@@ -31,7 +30,6 @@ public class Death : MonoBehaviour {
         GameManager = gameManager.GetComponent<gameMan>();
 		moveScript = GetComponent("RigidbodyFirstPersonController") as MonoBehaviour;
         isDead = false;
-        //zipScript = GetComponent<Zipline>();
 
         t = GetComponent<Transform>();
 		initCamPos = t.position;
@@ -66,14 +64,12 @@ public class Death : MonoBehaviour {
 	public IEnumerator Respawn(float timeOut) {
         isDead = true;
         yield return new WaitForSeconds(timeOut);
-        //t.GetChild(0).GetComponent<Transform>().position = initCamPos;
         text.enabled = false;
         t.position = startPoint;
 		moveScript.enabled = true;
-        //zipScript.IsFlying = true;
         GetComponent<Rigidbody>().useGravity = true;
         isDead = false;
     }
 
-    
+
 }
