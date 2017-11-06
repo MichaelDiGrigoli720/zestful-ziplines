@@ -18,11 +18,10 @@ public class Zipline : MonoBehaviour
 
 	private float elapsedTime = 0.0f; //Time since last shot
 	public Rigidbody fpcRigidBody; // the FPC Rigidbody component
-	private GameObject curProj; //The current projectile shot
+	public GameObject curProj; //The current projectile shot
 	private RaycastHit hit;
 	private bool doCast = false;
 	private bool hooked = false;
-	//private Vector3 hookedLoc = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +37,7 @@ public class Zipline : MonoBehaviour
             {
 				spawnProj(cam.transform.position, cam.transform.rotation);
                 //findLocation(FPC.transform.position + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), cam.transform.rotation);
+                doCast = true;
                 elapsedTime = reloadTime;
             }
         }
@@ -125,15 +125,22 @@ public class Zipline : MonoBehaviour
 			//FPC.canMove = false;
 			//lineRenderer.enabled = true;
 			//doCast = false;
-			if(curProj != null)
+			RaycastHit hit;
+			if(curProj != null) {
 				lineRenderer.SetPosition(1, curProj.transform.position);
+				if(Physics.Raycast(curProj.transform.position, curProj.transform.forward, out hit)) {
+					loc = hit.point;
+				}
+			}
 		}
+
 		else
 		{
             if(curProj == null)
             {
                 return;
             }
+
 			if(Physics.Raycast(cam.transform.position, curProj.transform.position - cam.transform.position, out hit))
 			{
                 advancedMovement am = hit.collider.GetComponent<advancedMovement>();
@@ -148,8 +155,9 @@ public class Zipline : MonoBehaviour
 
 					Zipline otherPlayerZip = hit.collider.gameObject.GetComponent<Zipline>();
 					RaycastHit hit2;
-					if(Physics.Raycast(otherPlayerZip.cam.transform.position, curProj.transform.position - cam.transform.position, out hit2))
+					if(Physics.Raycast(otherPlayerZip.cam.transform.position, curProj.transform.forward, out hit2))
 					{
+						otherPlayerZip.curProj = curProj;
 						otherPlayerZip.loc = hit2.point;
 						otherPlayerZip.isFlying = true;
 						otherPlayerZip.fpcRigidBody.velocity = Vector3.zero;
@@ -157,7 +165,7 @@ public class Zipline : MonoBehaviour
 						otherPlayerZip.lineRenderer.SetPosition(1, curProj.transform.position);
 						otherPlayerZip.lineRenderer.enabled = true;
 						otherPlayerZip.hooked = true;
-						otherPlayerZip.spawnProj(otherPlayerZip.transform.position, curProj.transform.rotation);
+						//otherPlayerZip.spawnProj(otherPlayerZip.transform.position, curProj.transform.rotation);
 						otherPlayerZip.doCast = true;
 						doCast = false;
 					}
@@ -181,5 +189,14 @@ public class Zipline : MonoBehaviour
 		curProj = (GameObject)Instantiate(projectile, pos + (cam.transform.forward * 4) + new Vector3(0.0f, 0.75f, 0.0f), rot);
 		doCast = true;
 		Destroy(curProj, 5.0f);
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if(hooked) {
+			hooked = false;
+			isFlying = false;
+			FPC.canMove = true;
+			lineRenderer.enabled = false;
+		}
 	}
 }
